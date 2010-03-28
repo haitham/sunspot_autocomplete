@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sun Mar 28 13:19:14 +0200 2010</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1><a href="../classes/Sunspot.html">Sunspot</a> Autocomplete</h1>
+<p>
+<a href="../classes/Sunspot.html">Sunspot</a> Autocomplete is a Rails
+plugin that lets you use Solr and <a
+href="../classes/Sunspot.html">Sunspot</a> for handy autocompletion of your
+html text inputs.
+</p>
+<h3>Features:</h3>
+<ul>
+<li>Autocomplete: Typing &quot;clo&quot; will yield results that start with
+&quot;clo&quot;, like &quot;cloudy with a chance of meatballs&quot;.
+
+</li>
+<li>Autosuggest: Typing &quot;clo&quot; will yield results that contain (or
+start with) &quot;clo&quot;, like &quot;cloudy with a chance of
+meatballs&quot; and &quot;Jumping like Clowns&quot;.
+
+</li>
+<li>Both features are case insenitive.
+
+</li>
+<li>A CSS based view. You can override some style rules to force your look and
+feel.
+
+</li>
+</ul>
+<h2>Prerequisites</h2>
+<p>
+You should have solr, sunspot and sunspot_rails ON and running.
+</p>
+<p>
+<a
+href="http://outoftime.github.com/sunspot">outoftime.github.com/sunspot</a>
+</p>
+<h2>Installation</h2>
+<p>
+Download the plugin and place it under vendor/plugins.
+</p>
+<p>
+Run the following rake task to copy the plugin&#8216;s assets to your
+public directory. This will copy jquery.js and solr-autocompleter to your
+public/javascripts.
+</p>
+<pre>
+  rake sunspot_autocomplete:copy_assets
+</pre>
+<h2>Usage</h2>
+<p>
+In your solr schema.xml, add the following field types inside the
+&lt;types&gt; tag:
+</p>
+<pre>
+  &lt;fieldType name=&quot;autocomplete&quot; class=&quot;solr.TextField&quot; positionIncrementGap=&quot;100&quot;&gt;
+    &lt;analyzer type=&quot;index&quot;&gt;
+      &lt;tokenizer class=&quot;solr.KeywordTokenizerFactory&quot;/&gt;
+      &lt;filter class=&quot;solr.LowerCaseFilterFactory&quot;/&gt;
+      &lt;filter class=&quot;solr.EdgeNGramFilterFactory&quot; minGramSize=&quot;1&quot; maxGramSize=&quot;25&quot; /&gt;
+    &lt;/analyzer&gt;
+    &lt;analyzer type=&quot;query&quot;&gt;
+      &lt;tokenizer class=&quot;solr.KeywordTokenizerFactory&quot;/&gt;
+      &lt;filter class=&quot;solr.LowerCaseFilterFactory&quot;/&gt;
+    &lt;/analyzer&gt;
+  &lt;/fieldType&gt;
+  &lt;fieldType name=&quot;autosuggest&quot; class=&quot;solr.TextField&quot; positionIncrementGap=&quot;100&quot;&gt;
+    &lt;analyzer type=&quot;index&quot;&gt;
+      &lt;tokenizer class=&quot;solr.LetterTokenizerFactory&quot;/&gt;
+      &lt;filter class=&quot;solr.LowerCaseFilterFactory&quot;/&gt;
+      &lt;filter class=&quot;solr.EdgeNGramFilterFactory&quot; minGramSize=&quot;1&quot; maxGramSize=&quot;25&quot; /&gt;
+    &lt;/analyzer&gt;
+    &lt;analyzer type=&quot;query&quot;&gt;
+      &lt;tokenizer class=&quot;solr.LetterTokenizerFactory&quot;/&gt;
+      &lt;filter class=&quot;solr.LowerCaseFilterFactory&quot;/&gt;
+    &lt;/analyzer&gt;
+  &lt;/fieldType&gt;
+</pre>
+<p>
+Also in your solr schema.xml, add the following fields inside thw
+&lt;fields&gt; tag.
+</p>
+<pre>
+  &lt;dynamicField name=&quot;*_ac&quot; type=&quot;autocomplete&quot; indexed=&quot;true&quot;  stored=&quot;true&quot;/&gt;
+  &lt;dynamicField name=&quot;*_as&quot; type=&quot;autosuggest&quot; indexed=&quot;true&quot;  stored=&quot;true&quot;/&gt;
+</pre>
+<p>
+To be able to autocomplete/autosuggest a model&#8216;s attribute, call
+&#8216;autocomplete&#8217;/&#8217;autosuggest&#8217; on it in its
+&#8216;searchable&#8217; block. the field_name used (post_title and
+post_author in the following example) must be unique across all your
+autocomplete fields of the application.
+</p>
+<pre>
+  class Post &lt; ActiveRecord::Base
+    searchable do
+      autocomplete :post_title, :using =&gt; :title
+      autosuggest :post_author, :using =&gt; :author
+    end
+  end
+</pre>
+<p>
+In your view, Add the following script tags (in the given order) to be able
+to use the view helpers.
+</p>
+<pre>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/jquery.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/solr-autocomplete/ajax-solr/core/Core.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/solr-autocomplete/ajax-solr/core/AbstractManager.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/solr-autocomplete/ajax-solr/managers/Manager.jquery.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/solr-autocomplete/ajax-solr/core/Parameter.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/solr-autocomplete/ajax-solr/core/ParameterStore.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/solr-autocomplete/jquery-autocomplete/jquery.autocomplete.js&quot;&gt;&lt;/script&gt;
+</pre>
+<p>
+Also, add the following stylesheet to use the basic style included.
+Alternatively, you can override those style rules to force your
+design&#8216;s look and feel.
+</p>
+<pre>
+  &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;/javascripts/solr-autocomplete/jquery-autocomplete/jquery.autocomplete.css&quot; /&gt;
+</pre>
+<p>
+In your view, to create a text field with autocomplete:
+</p>
+<pre>
+  &lt;%=autocomplete_text_field &quot;post&quot;, &quot;title&quot;, &quot;http://127.0.0.1:8983/solr/&quot;, &quot;post_title&quot;%&gt;
+</pre>
+<p>
+And to create a text field with autosuggest:
+</p>
+<pre>
+  &lt;%=autosuggest_text_field &quot;post&quot;, &quot;author&quot;, &quot;http://127.0.0.1:8983/solr/&quot;, &quot;post_author&quot;%&gt;
+</pre>
+<p>
+You can view documentation for more advanced features of the helpers.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
