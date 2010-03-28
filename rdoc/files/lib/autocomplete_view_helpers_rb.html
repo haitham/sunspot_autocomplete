@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Sun Mar 28 14:34:43 +0200 2010</td>
+      <td>Sun Mar 28 16:22:19 +0200 2010</td>
     </tr>
     </table>
   </div>
@@ -116,11 +116,9 @@ public/javascripts.
   rake sunspot_autocomplete:copy_assets
 </pre>
 <h2>Usage</h2>
-<p>
-In your solr schema.xml, add the following field types inside the
-&lt;types&gt; tag:
-</p>
 <pre>
+ In your solr schema.xml, in addition to field types added by sunspot, add the following field types inside the &lt;types&gt; tag:
+
   &lt;fieldType name=&quot;autocomplete&quot; class=&quot;solr.TextField&quot; positionIncrementGap=&quot;100&quot;&gt;
     &lt;analyzer type=&quot;index&quot;&gt;
       &lt;tokenizer class=&quot;solr.KeywordTokenizerFactory&quot;/&gt;
@@ -145,8 +143,8 @@ In your solr schema.xml, add the following field types inside the
   &lt;/fieldType&gt;
 </pre>
 <p>
-Also in your solr schema.xml, add the following fields inside thw
-&lt;fields&gt; tag.
+Also in your solr schema.xml, in addition to fields added by sunspot, add
+the following fields inside thw &lt;fields&gt; tag.
 </p>
 <pre>
   &lt;dynamicField name=&quot;*_ac&quot; type=&quot;autocomplete&quot; indexed=&quot;true&quot;  stored=&quot;true&quot;/&gt;

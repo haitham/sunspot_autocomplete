@@ -25,7 +25,7 @@
 #
 #== Usage
 #
-#In your solr schema.xml, add the following field types inside the <types> tag:
+# In your solr schema.xml, in addition to field types added by sunspot, add the following field types inside the <types> tag:
 #
 #  <fieldType name="autocomplete" class="solr.TextField" positionIncrementGap="100">
 #    <analyzer type="index">
@@ -50,7 +50,7 @@
 #    </analyzer>
 #  </fieldType>
 #
-#Also in your solr schema.xml, add the following fields inside thw <fields> tag.
+#Also in your solr schema.xml, in addition to fields added by sunspot, add the following fields inside thw <fields> tag.
 #
 #  <dynamicField name="*_ac" type="autocomplete" indexed="true"  stored="true"/>
 #  <dynamicField name="*_as" type="autosuggest" indexed="true"  stored="true"/>

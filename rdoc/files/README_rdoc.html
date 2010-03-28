@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Sun Mar 28 13:19:14 +0200 2010</td>
+      <td>Sun Mar 28 16:22:45 +0200 2010</td>
     </tr>
     </table>
   </div>
@@ -117,8 +117,8 @@ public/javascripts.
 </pre>
 <h2>Usage</h2>
 <p>
-In your solr schema.xml, add the following field types inside the
-&lt;types&gt; tag:
+In your solr schema.xml, in addition to field types added by sunspot, add
+the following field types inside the &lt;types&gt; tag:
 </p>
 <pre>
   &lt;fieldType name=&quot;autocomplete&quot; class=&quot;solr.TextField&quot; positionIncrementGap=&quot;100&quot;&gt;
@@ -145,8 +145,8 @@ In your solr schema.xml, add the following field types inside the
   &lt;/fieldType&gt;
 </pre>
 <p>
-Also in your solr schema.xml, add the following fields inside thw
-&lt;fields&gt; tag.
+Also in your solr schema.xml, in addition to fields added by sunspot, add
+the following fields inside thw &lt;fields&gt; tag.
 </p>
 <pre>
   &lt;dynamicField name=&quot;*_ac&quot; type=&quot;autocomplete&quot; indexed=&quot;true&quot;  stored=&quot;true&quot;/&gt;
